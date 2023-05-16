@@ -4,6 +4,17 @@ window.addEventListener('load', function(){
     canvas.width = 1920;
     canvas.height = 1080;
 
+    let mouseX;
+    let mouseY;
+
+    let lbutton;
+
+    let LD = false;
+    let LL = false;
+    let RD = false;
+    let RL = false;
+
+
     let LDButtonPosX = 150;
     let LDButtonPosY = 150;
     let LDButtonW = 200;
@@ -43,6 +54,7 @@ window.addEventListener('load', function(){
     ctx.beginPath();
     ctx.rect(RLButtonPosX, RLButtonPosY, RLButtonW, RLButtonH);
     ctx.fill();
+
 
 
     function clearScreen(){
@@ -90,18 +102,84 @@ window.addEventListener('load', function(){
 
     }
 
+    function updateLD(){
+        LD = !LD;
+        if (LD == true){
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.rect(LDButtonPosX, LDButtonPosY, LDButtonW, LDButtonH);
+            ctx.fill();
+        }
+        else{
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.rect(LDButtonPosX, LDButtonPosY, LDButtonW, LDButtonH);
+            ctx.fill();
+        }
+    }
+
+    function updateLL(){
+        LL = !LL;
+    }
+
+    function updateRD(){
+        RD = !RD;
+        if (RD == true){
+            ctx.fillStyle = "green";
+            ctx.beginPath();
+            ctx.rect(RDButtonPosX, RDButtonPosY, RDButtonW, RDButtonH);
+            ctx.fill();
+        }
+        else{
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.rect(RDButtonPosX, RDButtonPosY, RDButtonW, RDButtonH);
+            ctx.fill();
+        }
+    }
+
+    function updateRL(){
+        RL = !RL;
+
+    }
+    
+    function between(x, y){
+        return ((mouseX >= x && mouseX <= (x + 200)) && (mouseY >= y && mouseY <= (y+200)));
+    }
+    
+    function splashScreen(){
+        background(0,0,0);
+        fill(255,0,0);
+    }
+    
     window.addEventListener('mousemove',(e)=>{
-        ctx.fillStyle = "green";
-        ctx.beginPath();
-        ctx.rect(e.pageX, e.pageY, 10, 10);
-        ctx.fill();
-    })
+        mouseX = e.pageX;
+        mouseY = e.pageY;
+        //ctx.fillStyle = "green";
+        //ctx.beginPath();
+        //ctx.rect(e.pageX, e.pageY, 20, 20);
+        //ctx.fill();
+    });
+
+    this.window.addEventListener('click',()=>{
+        if (between(LDButtonPosX, LDButtonPosY)){
+            updateLD();
+        }
+        else if (between(LLButtonPosX, LLButtonPosY)){
+            updateLL();
+        }
+        else if (between(RDButtonPosX, RDButtonPosY)){
+            updateRD();
+        }
+        else if (between(RLButtonPosX,RLButtonPosY)){
+            updateRL();
+        }
+    });
+
+    
 });
 
-function splashScreen(){
-    background(0,0,0);
-    fill(255,0,0);
-}
+
 
 
 
